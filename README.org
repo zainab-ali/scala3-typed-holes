@@ -1,0 +1,44 @@
+* How to write a Scala 3 version of Scala Typed Holes
+  Scala Typed Holes should be a [[*\[\[https://dotty.epfl.ch/docs/reference/changed-features/compiler-plugins.html\]\[Dotty: Changes in compiler plugins\]\]][standard compiler plugin]] with two phases. These slot in between existing compiler phases.
+* The Scala 2 plugin
+The plugin consists of two phases:
+** TypedHolesComponent
+   This calculates the type of a ~???~
+#+begin_src scala
+  override val phaseName: String = "typed-holes"
+  override val runsAfter: List[String] = List("typer")
+  override val runsBefore: List[String] = List("patmat")
+#+end_src
+
+** NamedHoles
+   This calculates the type of a [[*\[\[https://github.com/zainab-ali/scala-typed-holes#named-holes\]\[Scala 2 Typed Holes - Named holes\]\]][named hole]].
+#+begin_src scala
+  override val phaseName: String = "named-holes"
+  override val runsAfter: List[String] = List("parser")
+  override val runsBefore: List[String] = List("namer")
+#+end_src
+
+* Equivalent Scala 3 phases
+From a skim read of [[*\[\[https://dotty.epfl.ch/docs/internals/overall-structure.html\]\[Dotty phases\]\]][Dotty phases]], we might be able to translate the phases as follows:
+
+ | typer  | PostTyper      |
+ | patmat | PatternMatcher |
+ | parser | FrontEnd       |
+ | namer  | ???            |
+
+*** TODO Explore each phase in detail
+ - Why must the plugin run before and after these phases?
+ - What are the equivalent phases in Scala 3?
+* TODO Traversing the tree
+The typed holes plugin traverses the typed tree to find the appropriate matching type. There may be several methods for tree traversal available in a phase.  See [[*\[\[https://dotty.epfl.ch/docs/reference/changed-features/compiler-plugins.html\]\[Dotty: Changes in compiler plugins\]\]][the example standard plugin]] and the [[*\[\[https://github.com/lampepfl/dotty/blob/master/compiler/src/dotty/tools/dotc/transform/MegaPhase.scala\]\[MegaPhase source\]\]][MegaPhase source]].
+* TODO Publishing the plugin
+* A note on Nix
+  The ~shell.nix~ doesn't pick up the latest mill version. The latest version (0.9.3) supports Scala 3, but the nix channel doesn't contain this yet.
+  For the moment, use the mill script that installs a local non-nix version in ~./mill/download~.
+* References
+** [[https://dotty.epfl.ch/docs/reference/changed-features/compiler-plugins.html][Dotty: Changes in compiler plugins]] 
+** [[https://dotty.epfl.ch/docs/reference/changed-features/compiler-plugins.html#using-compiler-plugins][Dotty: using compiler plugins]]
+** [[https://docs.scala-lang.org/overviews/plugins/index.html][Scala 2: Compiler plugins]]
+** [[https://dotty.epfl.ch/docs/internals/overall-structure.html][Dotty phases]]
+** [[https://github.com/lampepfl/dotty/blob/master/compiler/src/dotty/tools/dotc/transform/MegaPhase.scala][MegaPhase source]]
+** [[https://github.com/zainab-ali/scala-typed-holes#named-holes][Scala 2 Typed Holes - Named holes]]
