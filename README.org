@@ -32,9 +32,6 @@ From a skim read of [[*\[\[https://dotty.epfl.ch/docs/internals/overall-structur
 * TODO Traversing the tree
 The typed holes plugin traverses the typed tree to find the appropriate matching type. There may be several methods for tree traversal available in a phase.  See [[*\[\[https://dotty.epfl.ch/docs/reference/changed-features/compiler-plugins.html\]\[Dotty: Changes in compiler plugins\]\]][the example standard plugin]] and the [[*\[\[https://github.com/lampepfl/dotty/blob/master/compiler/src/dotty/tools/dotc/transform/MegaPhase.scala\]\[MegaPhase source\]\]][MegaPhase source]].
 * TODO Publishing the plugin
-* A note on Nix
-  The ~shell.nix~ doesn't pick up the latest mill version. The latest version (0.9.3) supports Scala 3, but the nix channel doesn't contain this yet.
-  For the moment, use the mill script that installs a local non-nix version in ~./mill/download~.
 * References
 ** [[https://dotty.epfl.ch/docs/reference/changed-features/compiler-plugins.html][Dotty: Changes in compiler plugins]] 
 ** [[https://dotty.epfl.ch/docs/reference/changed-features/compiler-plugins.html#using-compiler-plugins][Dotty: using compiler plugins]]
