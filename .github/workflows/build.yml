@@ -23,4 +23,6 @@ jobs:
     - name: Check formatting
       run: mill mill.scalalib.scalafmt.ScalafmtModule/checkFormatAll __.sources
     - name: Compile
-      run: mill root.compile
+      run: |
+        mill root.compile
+        mill root.test
