@@ -1,5 +1,22 @@
 package foo
 
 object Foo {
-  val x: Int = ???
+
+  val hole1 = ???
+
+  def hole2 = ???
+
+  var hole3 = ???
+
+  def hole4: List[String] = ???
+
+  val hole5: List[String] = ???
+
+  val hole6: Option[?] = ???
+
+  val hole7 = { ??? }
+
+  val hole8: () => Int = { ??? }
+
+  val hole9 = { (x: String) => ??? }
 }

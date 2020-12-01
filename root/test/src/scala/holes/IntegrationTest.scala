@@ -35,7 +35,7 @@ class IntegrationTest extends FunSuite {
         Files.readAllBytes(scenario.resolve("expected.txt")),
         StandardCharsets.UTF_8
       ).trim
-      assertEquals(result, expected)
+      assertNoDiff(result, expected)
     }
   }
 
@@ -54,7 +54,8 @@ class IntegrationTest extends FunSuite {
         :: "dotty.tools.dotc.Main"
         :: args.toList
     ).!(logger)
-    assertEquals(status, 0)
+
+    assert(clue(status) == 0, "Compilation exited with non-zero status code")
 
     buf.toString
   }
