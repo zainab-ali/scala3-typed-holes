@@ -22,8 +22,5 @@ jobs:
         with:
           skip_adding_nixpkgs_channel: true
 
-      - name: "Check formatting 📝"
-        run: nix-shell --run "mill mill.scalalib.scalafmt.ScalafmtModule/checkFormatAll __.sources"
-
       - name: "Compile with ${{ matrix.java }} 🚀"
         run: nix-shell --argstr jdk "${{ matrix.java }}" --run "mill root.compile"
