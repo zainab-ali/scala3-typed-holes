@@ -1,5 +1,7 @@
+{ jdk ? "jdk11" }:
+
 let
-  jdk = pkgs.jdk11;
+  java = pkgs.${jdk};
 
   config = {
     packageOverrides = pkgs: rec {
@@ -16,7 +18,7 @@ let
             runHook preInstall
             install -Dm555 "$src" "$out/bin/.mill-wrapped"
             # can't use wrapProgram because it sets --argv0
-            makeWrapper "$out/bin/.mill-wrapped" "$out/bin/mill" --set JAVA_HOME "${jdk}"
+            makeWrapper "$out/bin/.mill-wrapped" "$out/bin/mill" --set JAVA_HOME "${java}"
             runHook postInstall
           '';
         }
