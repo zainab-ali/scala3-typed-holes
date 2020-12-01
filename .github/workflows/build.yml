@@ -20,8 +20,6 @@ jobs:
       uses: jodersky/setup-mill@master
       with:
         mill-version: 0.9.3
-    - name: Check formatting
-      run: mill mill.scalalib.scalafmt.ScalafmtModule/checkFormatAll __.sources
     - name: Compile
       run: |
         mill root.compile
