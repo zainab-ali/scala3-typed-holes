@@ -35,7 +35,7 @@ class IntegrationTest extends FunSuite {
         Files.readAllBytes(scenario.resolve("expected.txt")),
         StandardCharsets.UTF_8
       ).trim
-      assertEquals(result, expected)
+      assertNoDiff(result, expected)
     }
   }
 

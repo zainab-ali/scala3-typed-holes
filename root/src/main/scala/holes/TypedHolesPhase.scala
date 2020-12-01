@@ -16,9 +16,33 @@ class TypedHolesPhase extends PluginPhase {
 
   override def transformValDef(tree: ValDef)(using Context): Tree =
     tree match {
-      case ValDef(_, _, Ident(name)) if name == StdNames.nme.`???` =>
-        report.warning("Found a hole", tree.srcPos)
+      case ValDef(_, _, Hole(hole)) =>
+        log(hole, tree.tpt)
         tree
       case _ => tree
     }
+
+  override def transformDefDef(tree: DefDef)(using Context): Tree =
+    tree match {
+      case DefDef(_, _, _, tpt, Hole(hole)) =>
+        log(hole, tpt)
+        tree
+      case _ => tree
+    }
+
+  def log(hole: Tree, tpe: Tree)(using Context): Unit = {
+    val message = s"Found hole with type: ${tpe.show}"
+    report.warning(message, hole.srcPos)
+  }
+
+  object Hole {
+    def unapply(tree: Tree)(using Context): Option[Tree] = tree match {
+      case _ if tree.symbol.name == StdNames.nme.`???` =>
+        Some(tree)
+      case Block(_, expr) if expr.symbol.name == StdNames.nme.`???` =>
+        Some(expr)
+      case _ =>
+        None
+    }
+  }
 }

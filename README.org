@@ -33,6 +33,11 @@ From a skim read of [[*\[\[https://dotty.epfl.ch/docs/internals/overall-structur
 The typed holes plugin traverses the typed tree to find the appropriate matching type. There may be several methods for tree traversal available in a phase.  See [[*\[\[https://dotty.epfl.ch/docs/reference/changed-features/compiler-plugins.html\]\[Dotty: Changes in compiler plugins\]\]][the example standard plugin]] and the [[*\[\[https://github.com/lampepfl/dotty/blob/master/compiler/src/dotty/tools/dotc/transform/MegaPhase.scala\]\[MegaPhase source\]\]][MegaPhase source]]. 
 This exposes individual methods for transforming each case.
 
+The ~prepareFor~ fuction is called before the tree's children are transformed.
+The ~transform~ function is called after its children are transformed.
+
+Holes can probably be logged in either one.  Bindings must be pushed in ~prepare~ and popped in ~transform~
+
 #+begin_src scala
     def transformIdent(tree: Ident)(using Context): Tree = tree
 #+end_src

@@ -1,1 +1,33 @@
-Nothing here yet
+-- Warning: ./root/test/resources/sample/input.scala:5:14 ----------------------
+5 |  val hole1 = ???
+  |              ^^^
+  |              Found hole with type: Nothing
+-- Warning: ./root/test/resources/sample/input.scala:7:14 ----------------------
+7 |  def hole2 = ???
+  |              ^^^
+  |              Found hole with type: Nothing
+-- Warning: ./root/test/resources/sample/input.scala:9:14 ----------------------
+9 |  var hole3 = ???
+  |              ^^^
+  |              Found hole with type: Nothing
+-- Warning: ./root/test/resources/sample/input.scala:11:28 ---------------------
+11 |  def hole4: List[String] = ???
+   |                            ^^^
+   |                            Found hole with type: List[String]
+-- Warning: ./root/test/resources/sample/input.scala:13:28 ---------------------
+13 |  val hole5: List[String] = ???
+   |                            ^^^
+   |                            Found hole with type: List[String]
+-- Warning: ./root/test/resources/sample/input.scala:15:25 ---------------------
+15 |  val hole6: Option[?] = ???
+   |                         ^^^
+   |                         Found hole with type: Option[?]
+-- Warning: ./root/test/resources/sample/input.scala:17:16 ---------------------
+17 |  val hole7 = { ??? }
+   |                ^^^
+   |                Found hole with type: Nothing
+-- Warning: ./root/test/resources/sample/input.scala:19:27 ---------------------
+19 |  val hole8: () => Int = { ??? }
+   |                           ^^^
+   |                           Found hole with type: () => Int
+8 warnings found
