@@ -54,7 +54,8 @@ class IntegrationTest extends FunSuite {
         :: "dotty.tools.dotc.Main"
         :: args.toList
     ).!(logger)
-    assertEquals(status, 0)
+
+    assert(clue(status) == 0, "Compilation exited with non-zero status code")
 
     buf.toString
   }
