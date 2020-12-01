@@ -30,4 +30,11 @@
 19 |  val hole8: () => Int = { ??? }
    |                           ^^^
    |                           Found hole with type: () => Int
-8 warnings found
+-- Warning: ./root/test/resources/sample/input.scala:21:31 ---------------------
+21 |  val hole9 = { (x: String) => ??? }
+   |                               ^^^
+   |
+   |                               Found hole with type: Nothing
+   |                               Relevant bindings include
+   |                                 x: String (bound at input.scala:20:17)
+9 warnings found

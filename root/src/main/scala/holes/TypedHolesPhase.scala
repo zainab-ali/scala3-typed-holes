@@ -58,7 +58,10 @@ class TypedHolesPhase extends PluginPhase {
 
     val message =
       if (bindingStr.nonEmpty)
-        s"Bindings $bindingStr"
+        s"""
+           |Found hole with type: ${tpe.show}
+           |Relevant bindings include
+           |$bindingStr""".stripMargin
       else
         s"Found hole with type: ${tpe.show}"
     report.warning(message, hole.srcPos)
