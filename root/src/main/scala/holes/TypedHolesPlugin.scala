@@ -8,5 +8,5 @@ class TypedHolesPlugin extends StandardPlugin {
     "Treat use of ??? as a hole and give a useful warning about it"
 
   // TODO: Pass this some options for the log level
-  def init(options: List[String]): List[PluginPhase] = Nil
+  def init(options: List[String]): List[PluginPhase] = List(new TypedHolesPhase)
 }
